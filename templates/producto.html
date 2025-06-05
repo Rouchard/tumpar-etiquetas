@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Producto {{ item.codigo }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff !important;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .card {
+            background-color: #111;
+            border: none;
+            border-radius: 25px;
+        }
+        .logo {
+            max-height: 150px;
+        }
+        .titulo {
+            font-weight: 600;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-6">
+        <div class="text-center mb-7">
+            <img src="/static/logo_tumpar.png" alt="Tumpar LTDA" class="logo">
+        </div>
+        <div class="card p-4 shadow-lg mx-auto" style="max-width: 650px;">
+            <div class="titulo text-white">Código: {{ item.codigo }}</div>
+            <p class="text-white"><strong>Descripción:</strong> {{ item.descripcion }}</p>
+            <p class="text-white"><strong>Marca:</strong> {{ item.marca }}</p>
+            <p class="text-white"><strong>Status:</strong> {{ item.status }}</p>
+            <p class="text-white"><strong>Ultima fecha de llegada:</strong> {{ item.fecha.strftime('%d/%m/%Y') }}</p>
+            <p class="text-white"><strong>Precio m2:</strong> {{ item.preciom2 }}</p>
+            <h2><p class="text-white"><strong>Precio (Caja):</strong> <span class="text-success fw-semibold">${{ item.precio }}</span></p></h2>
+        </div>
+    </div>
+</body>
+</html>
