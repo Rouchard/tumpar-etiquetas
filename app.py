@@ -34,19 +34,18 @@ def producto(codigo):
 
     item = producto.iloc[0]
 
-    # Formatear la fecha como string segura para Jinja2
-    if pd.isna(item.fecha):
-        item_fecha_str = None
-    else:
-        # Convertir a Timestamp seguro
-        fecha_timestamp = pd.to_datetime(item.fecha, errors='coerce')
-        if pd.isna(fecha_timestamp):
+    # Manejo robusto de fecha para evitar error 500 en Render
+    item_fecha_str = None
+
+    if item.fecha is not None:
+        try:
+            fecha_timestamp = pd.to_datetime(item.fecha, errors='coerce')
+            if pd.notna(fecha_timestamp):
+                item_fecha_str = fecha_timestamp.strftime('%d/%m/%Y')
+        except Exception as e:
             item_fecha_str = None
-        else:
-            item_fecha_str = fecha_timestamp.strftime('%d/%m/%Y')
 
     return render_template('producto.html', item=item, item_fecha_str=item_fecha_str)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
-
