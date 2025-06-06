@@ -38,7 +38,9 @@
             <p class="text-white"><strong>Descripción:</strong> {{ item.descripcion }}</p>
             <p class="text-white"><strong>Marca:</strong> {{ item.marca }}</p>
             <p class="text-white"><strong>Status:</strong> {{ item.status }}</p>
-            <p class="text-white"><strong>Ultima fecha de llegada:</strong> {{ item.fecha.strftime('%d/%m/%Y') }}</p>
+            <p class="text-white"><strong>Ultima fecha de llegada:</strong> 
+                {% if item_fecha_str %}{{ item_fecha_str }}{% else %}N/A{% endif %}
+            </p>
             <p class="text-white"><strong>Precio m2:</strong> {{ item.preciom2 }}</p>
             <h2><p class="text-white"><strong>Precio (Caja):</strong> <span class="text-success fw-semibold">${{ item.precio }}</span></p></h2>
         </div>
