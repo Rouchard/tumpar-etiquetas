@@ -7,23 +7,28 @@ app = Flask(__name__)
 df = pd.read_excel('etiquetas.xlsm', engine='openpyxl')
 
 # Renombrar columnas para uso en código
-df.columns = df.columns.str.strip()  # elimina espacios
+df.columns = df.columns.str.strip()
 df = df.rename(columns={
     'COD. ARTICULO': 'codigo',
     'DESCRIPCION': 'descripcion',
     'MARCA': 'marca',
     'STATUS': 'status', 
     'Ultima fecha de ingreso': 'fecha',
-    'PRECIO RETAIL CAJA': 'precio',
-    'PRECIO RETAIL M2/PZA': 'preciom2'
+    'PRECIO RETAIL CAJA ANTES': 'precio_antes',
+    'PRECIO RETAIL M2/PZA ANTES': 'preciom2_antes',
+    'PRECIO RETAIL CAJA ACTUAL': 'precio',
+    'PRECIO RETAIL M2/PZA ACTUAL': 'preciom2',
+    'DESCUENTO' : 'descuento',
+    'UNIDAD MEDIDA': 'unidad',
+    'CONV-PZ-TONO': 'detalle',
+    'DISPONIBLE VENTA M2/PZA': 'stock',
+    'ULTIMA ACTUALIZACION DE STOCK': 'stock_actualizado'
 })
-
-# No eliminamos las filas con NaN en fecha
-df = df.dropna(subset=['codigo', 'descripcion','status', 'marca', 'precio', 'preciom2'])
 
 # Conversión de columnas
 df['codigo'] = df['codigo'].astype(str)
 df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
+df['stock_actualizado'] = pd.to_datetime(df['stock_actualizado'], errors='coerce')
 
 @app.route('/<codigo>')
 def producto(codigo):
@@ -34,18 +39,49 @@ def producto(codigo):
 
     item = producto.iloc[0]
 
-    # Manejo robusto de fecha para evitar error 500 en Render
-    item_fecha_str = None
+    # Reemplazar NaN con "-" excepto fechas
+    item = item.where(pd.notna(item), "-")
 
-    if item.fecha is not None:
+    # Si el stock es negativo, mostrar campo vacío
+    if 'stock' in item and item['stock'] != "-":
         try:
-            fecha_timestamp = pd.to_datetime(item.fecha, errors='coerce')
+            valor_stock = float(item['stock'])
+            if valor_stock < 0:
+                item['stock'] = ""
+        except:
+            item['stock'] = ""
+
+
+    # Formatear el campo 'descuento' como "30%" (entero con símbolo)
+    if item['descuento'] != "-":
+        try:
+            valor = float(item['descuento'])
+            item['descuento'] = f"{valor:.0f}%"
+        except:
+            item['descuento'] = "-"
+
+    # Formateo de fecha de ingreso
+    item_fecha_str = None
+    if item['fecha'] != "-" and pd.notna(item['fecha']):
+        try:
+            fecha_timestamp = pd.to_datetime(item['fecha'], errors='coerce')
             if pd.notna(fecha_timestamp):
                 item_fecha_str = fecha_timestamp.strftime('%d/%m/%Y')
-        except Exception as e:
+        except Exception:
             item_fecha_str = None
 
-    return render_template('producto.html', item=item, item_fecha_str=item_fecha_str)
+    # Formateo de fecha de stock actualizado (con hora)
+    item_stock_fecha_str = None
+    if item.get('stock_actualizado') != "-" and pd.notna(item.get('stock_actualizado')):
+        try:
+            stock_fecha_timestamp = pd.to_datetime(item['stock_actualizado'], errors='coerce', dayfirst=True)
+            if pd.notna(stock_fecha_timestamp):
+                item_stock_fecha_str = stock_fecha_timestamp.strftime('%d/%m/%Y %H:%M')
+        except:
+            item_stock_fecha_str = None
+
+
+    return render_template('producto.html', item=item, item_fecha_str=item_fecha_str, item_stock_fecha_str=item_stock_fecha_str)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
