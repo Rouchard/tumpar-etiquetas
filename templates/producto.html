@@ -40,6 +40,7 @@
             <p class="text-white"><strong>Unidad de medida:</strong> {{ item.unidad }}</p>
             <p class="text-white"><strong>Status:</strong> {{ item.status }}</p>
             <p class="text-white"><strong>Detalle:</strong> {{ item.detalle }}</p>
+
             {% if item.unidad == "CAJA" %}
                 <p class="text-white"><strong>Stock Disponible (M2):</strong> {{ item.stock }}</p>
             {% else %}
@@ -49,33 +50,21 @@
             <p class="text-white"><strong>Última actualización de Precio y Stock:</strong>
                 {% if item_stock_fecha_str %}{{ item_stock_fecha_str }}{% else %}N/A{% endif %}
             </p>
-<!--            <p class="text-white"><strong>Última actualización de precio:</strong>
-                {% if item_fecha_str %}{{ item_fecha_str }}{% else %}N/A{% endif %}
-            </p>
--->
-            {% if item.status == "PRODUCTO DESCONTINUADO" %}
-                {% if item.unidad == "CAJA" %}
-                    <h2><p class="text-white"><strong>Precio Antes M2:</strong> 
-                        <span class="text-danger fw-semibold">${{ item.preciom2_antes }}</span></p></h2>
-                    <h2><p class="text-white"><strong>Precio Actual M2:</strong> 
-                        <span class="text-success fw-semibold">${{ item.preciom2 }}</span></p></h2>
-                {% else %}
-                    <h2><p class="text-white"><strong>Precio Antes (UNIDAD):</strong> 
-                        <span class="text-danger fw-semibold">${{ item.precio_antes }}</span></p></h2>
-                    <h2><p class="text-white"><strong>Precio Actual (UNIDAD):</strong> 
-                        <span class="text-success fw-semibold">${{ item.precio }}</span></p></h2>
-                {% endif %}
-                <h2><p class="text-white"><strong>% de Descuento:</strong> 
-                    <span class="text-warning fw-semibold">{{ item.descuento }}</span></p></h2>
+
+            <!-- Siempre mostrar como descontinuado -->
+            {% if item.unidad == "CAJA" %}
+                <h2><p class="text-white"><strong>Precio Antes M2:</strong> 
+                    <span class="text-danger fw-semibold">${{ item.preciom2_antes }}</span></p></h2>
+                <h2><p class="text-white"><strong>Precio Actual M2:</strong> 
+                    <span class="text-success fw-semibold">${{ item.preciom2 }}</span></p></h2>
             {% else %}
-                {% if item.unidad == "CAJA" %}
-                    <h2><p class="text-white"><strong>Precio Actual M2:</strong> 
-                        <span class="text-success fw-semibold">${{ item.preciom2 }}</span></p></h2>
-                {% else %}
-                    <h2><p class="text-white"><strong>Precio Actual (UNIDAD):</strong> 
-                        <span class="text-success fw-semibold">${{ item.precio }}</span></p></h2>
-                {% endif %}
+                <h2><p class="text-white"><strong>Precio Antes (UNIDAD):</strong> 
+                    <span class="text-danger fw-semibold">${{ item.precio_antes }}</span></p></h2>
+                <h2><p class="text-white"><strong>Precio Actual (UNIDAD):</strong> 
+                    <span class="text-success fw-semibold">${{ item.precio }}</span></p></h2>
             {% endif %}
+            <h2><p class="text-white"><strong>% de Descuento:</strong> 
+                <span class="text-warning fw-semibold">{{ item.descuento }}</span></p></h2>
         </div>
     </div>      
 </body>
