@@ -83,5 +83,5 @@ def producto(codigo):
 
     return render_template('producto.html', item=item, item_fecha_str=item_fecha_str, item_stock_fecha_str=item_stock_fecha_str)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000, debug=True)
+#if __name__ == '__main__':
+#    app.run(host='0.0.0.0', port=10000, debug=True)
