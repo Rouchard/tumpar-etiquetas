@@ -22,8 +22,17 @@ df = df.rename(columns={
     'UNIDAD MEDIDA': 'unidad',
     'CONV-PZ-TONO': 'detalle',
     'DISPONIBLE VENTA M2/PZA': 'stock',
-    'ULTIMA ACTUALIZACION DE STOCK': 'stock_actualizado'
+    'ULTIMA ACTUALIZACION DE STOCK': 'stock_actualizado',
+    'CON DESCUENTO': 'con_descuento',
+    'PROMO': 'promo' 
 })
+# Asegurar que las nuevas columnas existan aunque el Excel no las tenga
+for col in ['con_descuento', 'promo']:
+    if col not in df.columns:
+        df[col] = "-"
+    else:
+        # Rellenar valores vacíos con "-"
+        df[col] = df[col].fillna("-").astype(str).str.strip()
 
 # Conversión de columnas
 df['codigo'] = df['codigo'].astype(str)
@@ -83,5 +92,6 @@ def producto(codigo):
 
     return render_template('producto.html', item=item, item_fecha_str=item_fecha_str, item_stock_fecha_str=item_stock_fecha_str)
 
+# Descomentar estas lineas para hacer pruebas locales
 #if __name__ == '__main__':
-#    app.run(host='0.0.0.0', port=10000, debug=True)
+ #   app.run(host='0.0.0.0', port=10000, debug=True)
