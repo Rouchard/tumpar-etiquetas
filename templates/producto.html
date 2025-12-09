@@ -26,26 +26,41 @@
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
-        .promo-banner {
-            background: linear-gradient(45deg, #000);
-            color: #FFD700;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 15px;
-            margin-bottom: 1.2rem;
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px #FFD700;
-            border: 2px solid #FFD700;
-            animation: pulseGlow 2s infinite alternate;
-        }
+.promo-banner {
+    background: linear-gradient(45deg, #4b0f0f, #7a1f1f); /* rojo vino oscuro */
+    color: #ffffff;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 15px;
+    margin-bottom: 1.2rem;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    border: 2px solid #ffb3b3; /* rojo pastel suave */
+    box-shadow: 0 0 15px rgba(255,179,179,0.6);
+    animation: pulseGlow 2s infinite alternate;
+}
 
-        @keyframes pulseGlow {
-            from { box-shadow: 0 0 10px #FFD700; }
-            to { box-shadow: 0 0 25px #FF0000; }
-        }
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 10px rgba(255,179,179,0.4); }
+    to   { box-shadow: 0 0 25px rgba(255,255,255,0.9); }
+}
+
+.navidad-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    opacity: 0.9;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.navidad-logo:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
     </style>
 </head>
 <body>
@@ -74,8 +89,8 @@
             {# ---- NUEVA LÓGICA DE DESCUENTOS Y PROMOS ---- #}
             {% if item.con_descuento == "SI" %}
                 
-                {% if item.promo == "PROMO NOVIEMBRE" %}
-                    <div class="promo-banner">🎉 BLACK NOVEMBER 🎉</div>
+                {% if item.promo == "PROMO DICIEMBRE" %}
+                    <div class="promo-banner">🎄 MODO NAVIDEÑO ACTIVADO 🎄</div>
                 {% endif %}
 
                 {% if item.unidad == "CAJA" %}
@@ -103,6 +118,7 @@
                 {% endif %}
             {% endif %}
         </div>
-    </div>      
+    </div>
+     <img src="/static/arbol_navideño_tumpar.png" alt="Navidad Tumpar" class="navidad-logo">     
 </body>
 </html>
