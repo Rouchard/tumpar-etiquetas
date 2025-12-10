@@ -51,9 +51,15 @@
     padding: 0.8rem;
     border-radius: 15px;
     margin-bottom: 1.2rem;
-    font-size: 1.6rem;
+    /* Esto mantiene el texto en una sola linea */
+    white-space: nowrap;
+    /* Hace el ajuste de tamaño automáticamente según pantalla */
+    font-size: clamp(0.65rem, 4vw, 1.6rem);
+    /*Evita que el texto se salga del banner */
+    overflow: hidden;
+    text-overflow: ellipsis;
     letter-spacing: 2px;
-    border: 2px solid #ffb3b3; /* rojo pastel suave */
+    border: 2px solid #ffb3b3;
     box-shadow: 0 0 15px rgba(255,179,179,0.6);
     animation: pulseGlow 2s infinite alternate;
 }
@@ -96,7 +102,7 @@
             {% if item.con_descuento == "SI" %}
                 
                 {% if item.promo == "PROMO DICIEMBRE" %}
-                    <div class="promo-banner">🎄 MODO NAVIDEÑO ACTIVADO 🎄</div>
+                    <div class="promo-banner">🎄MODO NAVIDEÑO ACTIVADO🎄</div>
                 {% endif %}
 
                 {% if item.unidad == "CAJA" %}
