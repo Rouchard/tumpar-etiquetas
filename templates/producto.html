@@ -15,7 +15,23 @@
             background-color: #111;
             border: none;
             border-radius: 25px;
+            position: relative; /* Necesario para el pseudo-elemento */
+            overflow: hidden;   /* Evita que la imagen se salga del borde redondeado */
         }
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('/static/arbol_solo_tumpar.png') no-repeat center;
+            background-size: 130%; /* Ajusta el tamaño del árbol */
+            opacity: 0.09; /* Suave, tipo marca de agua */
+            animation: treeGlow 4s ease-in-out infinite;
+            z-index: 0; /* Va detrás del contenido */
+        }
+        .card * {
+            position: relative;
+            z-index: 1;
+        }       
         .logo {
             max-height: 150px;
         }
@@ -46,22 +62,12 @@
     from { box-shadow: 0 0 10px rgba(255,179,179,0.4); }
     to   { box-shadow: 0 0 25px rgba(255,255,255,0.9); }
 }
-
-.navidad-logo {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 70px;
-    opacity: 0.9;
-    z-index: 10;
-    pointer-events: none;
+@keyframes treeGlow {
+    0%   { opacity: 0.06; }
+    50%  { opacity: 0.10; }
+    100% { opacity: 0.06; }
 }
-
-.navidad-logo:hover {
-    transform: scale(1.1);
-    opacity: 1;
-}
-    </style>
+ </style>
 </head>
 <body>
     <div class="container py-6">
@@ -118,7 +124,6 @@
                 {% endif %}
             {% endif %}
         </div>
-    </div>
-     <img src="/static/arbol_navideño_tumpar.png" alt="Navidad Tumpar" class="navidad-logo">     
+    </div>   
 </body>
 </html>
