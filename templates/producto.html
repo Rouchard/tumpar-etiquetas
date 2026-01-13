@@ -33,30 +33,37 @@
             margin-bottom: 1rem;
         }
         .promo-banner {
-            background: linear-gradient(45deg, #4b0f0f, #7a1f1f);
-            color: #ffffff;
+            background: linear-gradient(135deg, #1c1917, #3f2f1f);
+            color: #fef3c7;
             font-weight: 900;
             text-transform: uppercase;
             text-align: center;
             padding: 0.8rem;
             border-radius: 15px;
             margin-bottom: 1.2rem;
-            /*Esto mantiene el texto en una sola linea */
+
             white-space: nowrap;
-            /*Hace el ajuste de tamaño automáticamente según pantalla */
-            font-size: clamp(0.65rem, 4vw, 1.6rem);
-            /*Evita que el texto se salga del banner */
+            font-size: clamp(0.7rem, 4vw, 1.6rem);
             overflow: hidden;
             text-overflow: ellipsis;
+
             letter-spacing: 2px;
-            border: 2px solid #ffb3b3;
-            box-shadow: 0 0 15px rgba(255,179,179,0.6);
-            animation: pulseGlow 2s infinite alternate;
+            border: 2px solid #facc15;
+            box-shadow: 0 0 18px rgba(250,204,21,0.45);
+            animation: champagneGlow 3s ease-in-out infinite alternate;
         }
-        @keyframes pulseGlow {
-            from { box-shadow: 0 0 10px rgba(255,179,179,0.4); }
-            to   { box-shadow: 0 0 25px rgba(255,255,255,0.9); }
-        }
+        @keyframes champagneGlow {
+            from {
+                box-shadow:
+                    0 0 10px rgba(250,204,21,0.35),
+                    0 0 25px rgba(250,204,21,0.15);
+            }
+            to {
+                box-shadow:
+                    0 0 30px rgba(250,204,21,0.8),
+                    0 0 55px rgba(250,204,21,0.4);
+            }
+        }       
  </style>
 </head>
 <body>
@@ -85,8 +92,8 @@
             {# ---- NUEVA LÓGICA DE DESCUENTOS Y PROMOS ---- #}
             {% if item.con_descuento == "SI" %}
                 
-                {% if item.promo == "PROMO DICIEMBRE" %}
-                    <div class="promo-banner">🎄MODO NAVIDEÑO ACTIVADO🎄</div>
+                {% if item.promo == "PROMO ENERO" %}
+                    <div class="promo-banner">AÑO NUEVO, ESTILO NUEVO</div>
                 {% endif %}
 
                 {% if item.unidad == "CAJA" %}
