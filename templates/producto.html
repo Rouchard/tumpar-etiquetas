@@ -32,43 +32,43 @@
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
-        .promo-banner {
-            background: linear-gradient(135deg, #2f3442, #3a4150);
-            color: #e9dcc1;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 0.85rem;
-            border-radius: 14px;
-            margin-bottom: 1.2rem;
+.promo-banner {
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    border-radius: 14px;
+    margin-bottom: 1.2rem;
+    padding: 0.6rem;
 
-            /* Siempre en una sola línea */
-            white-space: nowrap;
-            font-size: clamp(0.75rem, 4vw, 1.5rem);
-            overflow: hidden;
-            text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /*controla la distancia entre imágenes */
 
-            letter-spacing: 2.5px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.8);
 
-            border: 1.8px solid rgba(214, 193, 147, 0.6);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-
-            animation: klipenPulse 4s ease-in-out infinite;
+    overflow: hidden;
+}
+        .promo-img {
+            max-height: 50px;
+            object-fit: contain;
+        }
+/* Imagen izquierda (40% OFF) */
+        .promo-img.left {
+            margin-left: 5px;
         }
 
-        @keyframes klipenPulse {
-            0% {
-                box-shadow:
-                    0 8px 25px rgba(0,0,0,0.6),
-                    inset 0 0 0 rgba(214,193,147,0);
-            }
-            100% {
-                box-shadow:
-                    0 10px 35px rgba(0,0,0,0.8),
-                    inset 0 0 18px rgba(214,193,147,0.15);
-            }
+/* Imagen derecha (TOP MARCAS) */
+        .promo-img.right {
+            margin-right: 5px;
         }
-
+.promo-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(214,193,147,0.15), transparent);
+    opacity: 0.4;
+    pointer-events: none;
+}
  </style>
 </head>
 <body>
@@ -94,11 +94,14 @@
                 {% if item_stock_fecha_str %}{{ item_stock_fecha_str }}{% else %}N/A{% endif %}
             </p>
 
-            {% if item.promo and item.promo|trim|upper == "PROMO KLIPEN" %}
-                <div class="promo-banner">TOTAL LOOK KLIPEN</div>
+            {% if item.promo and item.promo|trim|upper == "PROMO ABRIL" %}
+            <div class="promo-banner">
+                <img src="/static/40off.png" class="promo-img left">
+                <img src="/static/top_marcas.png" class="promo-img right">
+            </div>
             {% endif %}
 
-            {% set en_promo = item.promo and item.promo|trim|upper == "PROMO KLIPEN" %}
+            {% set en_promo = item.promo and item.promo|trim|upper == "PROMO ABRIL" %}
 
             {% if item.con_descuento == "SI" or en_promo %}
 
