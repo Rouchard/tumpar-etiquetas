@@ -32,43 +32,40 @@
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
-.promo-banner {
-    background: linear-gradient(135deg, #000000, #1a1a1a);
-    border-radius: 14px;
-    margin-bottom: 1.2rem;
-    padding: 0.6rem;
+        .promo-banner {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border-radius: 10px;
+            margin-bottom: 1rem;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /*controla la distancia entre imágenes */
+            height: 58px;              /* controla el grosor total del banner */
+            padding: 3px 12px;         /* poco espacio interno */
 
-    border: 2px solid #ffffff;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
 
-    overflow: hidden;
-}
+            border: 2px solid #ffffff;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+
+            overflow: hidden;
+        }
+
         .promo-img {
-            max-height: 50px;
+            max-height: 52px;          /* tamaño real de las imágenes */
+            width: auto;
             object-fit: contain;
         }
-/* Imagen izquierda (40% OFF) */
+
+        /* Imagen izquierda */
         .promo-img.left {
-            margin-left: 5px;
+            margin-left: 0;
         }
 
-/* Imagen derecha (TOP MARCAS) */
+        /* Imagen derecha */
         .promo-img.right {
-            margin-right: 5px;
+            margin-right: 0;
         }
-.promo-banner::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent, rgba(214,193,147,0.15), transparent);
-    opacity: 0.4;
-    pointer-events: none;
-}
  </style>
 </head>
 <body>
@@ -94,14 +91,14 @@
                 {% if item_stock_fecha_str %}{{ item_stock_fecha_str }}{% else %}N/A{% endif %}
             </p>
 
-            {% if item.promo and item.promo|trim|upper == "PROMO ABRIL" %}
+            {% if item.promo and item.promo|trim|upper == "GALPONAZO" %}
             <div class="promo-banner">
-                <img src="/static/40off.png" class="promo-img left">
-                <img src="/static/top_marcas.png" class="promo-img right">
+                <img src="/static/galponazo.png" class="promo-img left">
+                <img src="/static/70off.png" class="promo-img right">
             </div>
             {% endif %}
 
-            {% set en_promo = item.promo and item.promo|trim|upper == "PROMO ABRIL" %}
+            {% set en_promo = item.promo and item.promo|trim|upper == "GALPONAZO" %}
 
             {% if item.con_descuento == "SI" or en_promo %}
 
