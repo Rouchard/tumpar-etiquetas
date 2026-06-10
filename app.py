@@ -25,6 +25,7 @@ df = df.rename(columns={
     'ULTIMA ACTUALIZACION DE STOCK': 'stock_actualizado',
     'CON DESCUENTO': 'con_descuento',
     'PROMO': 'promo',
+    'CASACOR': 'casacor',
 
     # Nuevas columnas para etiqueta de muestra
     'Muestra': 'muestra',
@@ -33,7 +34,7 @@ df = df.rename(columns={
 })
 
 # Asegurar que las columnas existan aunque el Excel no las tenga
-for col in ['con_descuento', 'promo', 'muestra', 'precio_muestra', 'descuento_muestra']:
+for col in ['con_descuento', 'promo', 'muestra', 'precio_muestra', 'descuento_muestra', 'casacor']:
     if col not in df.columns:
         df[col] = "-"
     else:
@@ -182,5 +183,5 @@ def producto_muestra(codigo):
 
 
 # Descomentar estas lineas para hacer pruebas locales
-if __name__ == '__main__':
-   app.run(host='0.0.0.0', port=10000, debug=True)
+#if __name__ == '__main__':
+#   app.run(host='0.0.0.0', port=10000, debug=True)

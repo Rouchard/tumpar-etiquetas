@@ -51,6 +51,15 @@
             overflow: hidden;
         }
 
+        .promo-banner.casacor {
+            height: 42px;
+        }
+
+        .promo-banner.casacor .promo-img {
+            height: 34px;
+            max-height: 34px;
+        }
+
         .promo-img {
             max-height: 52px;          /* tamaño real de las imágenes */
             width: auto;
@@ -95,6 +104,12 @@
             <div class="promo-banner">
                 <img src="/static/galponazo.png" class="promo-img left">
                 <img src="/static/70off.png" class="promo-img right">
+            </div>
+            {% endif %}
+
+            {% if item.casacor and item.casacor|trim|upper == "SI" %}
+            <div class="promo-banner casacor">
+                <img src="/static/casacor.webp" class="promo-img left">
             </div>
             {% endif %}
 
