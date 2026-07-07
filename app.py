@@ -28,13 +28,14 @@ df = df.rename(columns={
     'CASACOR': 'casacor',
 
     # Nuevas columnas para etiqueta de muestra
-    'Muestra': 'muestra',
-    'Precio muestra': 'precio_muestra',
-    'Descuento muestra': 'descuento_muestra'
+    'muestra': 'muestra',
+    'precio muestra': 'precio_muestra',
+    'descuento muestra': 'descuento_muestra',
+    'stock muestra': 'stock_muestra'
 })
 
 # Asegurar que las columnas existan aunque el Excel no las tenga
-for col in ['con_descuento', 'promo', 'muestra', 'precio_muestra', 'descuento_muestra', 'casacor']:
+for col in ['con_descuento', 'promo', 'muestra', 'precio_muestra', 'descuento_muestra', 'stock_muestra', 'casacor']:
     if col not in df.columns:
         df[col] = "-"
     else:
@@ -108,6 +109,15 @@ def preparar_item(codigo):
                 item['stock'] = ""
         except:
             item['stock'] = ""
+
+    # Si el stock de muestra es negativo, mostrar campo vacío
+    if 'stock_muestra' in item and item['stock_muestra'] != "-":
+        try:
+            valor_stock_muestra = float(item['stock_muestra'])
+            if valor_stock_muestra < 0:
+                item['stock_muestra'] = ""
+        except:
+            item['stock_muestra'] = ""
 
     # Formatear descuento normal
     item['descuento'] = formatear_porcentaje(item.get('descuento', '-'))
@@ -183,5 +193,5 @@ def producto_muestra(codigo):
 
 
 # Descomentar estas lineas para hacer pruebas locales
-#if __name__ == '__main__':
-#   app.run(host='0.0.0.0', port=10000, debug=True)
+if __name__ == '__main__':
+   app.run(host='0.0.0.0', port=10000, debug=True)

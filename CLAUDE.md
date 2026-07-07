@@ -26,9 +26,9 @@ Install dependencies: `pip install -r requirements.txt`
 - **`preparar_item(codigo)`**: Core helper that looks up a product by code, sanitizes NaN values, formats prices/percentages/dates, and returns `(item, fecha_str, stock_fecha_str)`.
 - **Routes**:
   - `/<codigo>` → `templates/producto.html` — main label
-  - `/muestra/<codigo>` or `/muestras/<codigo>` → `templates/producto_muestra.html` — sample label, only renders if `Muestra == "SI"` and `precio_muestra` is set
+  - `/muestra/<codigo>` or `/muestras/<codigo>` → `templates/producto_muestra.html` — sample label, only renders if `Muestra == "SI"` and `precio_muestra` is set. Simpler than the main label: no promo banners, no "antes/con_descuento" branch — shows base fields, `stock_muestra` (as "Stock Disponible Muestra"), the regular current price, then `descuento_muestra` and `precio_muestra`.
 
-**Excel data source**: `etiquetas.xlsm` — this file is updated regularly (daily stock commits). Column mappings are defined in the `df.rename()` call at the top of `app.py`. If the Excel adds new columns, add them to that rename dict.
+**Excel data source**: `etiquetas.xlsm` — this file is updated regularly (daily stock commits, see below). Column mappings are defined in the `df.rename()` call at the top of `app.py`. If the Excel adds new columns, add them to that rename dict.
 
 **Templates** use Jinja2 with Bootstrap 5.3 and a black background. Promotional banners (Galponazo, Casacor 2026) are conditionally shown based on the `promo` and `casacor` flags from the Excel.
 
@@ -39,7 +39,20 @@ Install dependencies: `pip install -r requirements.txt`
 | `CON DESCUENTO` | `con_descuento` | `"SI"` / `"-"` |
 | `PROMO` | `promo` | `"GALPONAZO"` / `"-"` |
 | `CASACOR` | `casacor` | `"SI"` / `"-"` |
-| `Muestra` | `muestra` | `"SI"` / `"-"` |
+| `muestra` | `muestra` | `"SI"` / `"-"` |
+| `precio muestra` | `precio_muestra` | number, formatted via `formatear_precio` |
+| `descuento muestra` | `descuento_muestra` | number/percent, formatted via `formatear_porcentaje` |
+| `stock muestra` | `stock_muestra` | number; negative values are blanked out, same as `stock` |
+
+## Stock Update Automation
+
+`actualizar_stock.py` (run via `ejecutar_actualizacion.bat`) is a local Windows-only workflow, not part of the Flask app, that keeps `etiquetas.xlsm` and the deployment in sync:
+
+1. Opens `etiquetas.xlsm` via COM automation (`win32com.client`), runs the update macro/button on the `DISEÑO` sheet, and waits for Excel's background query to finish.
+2. Stamps column `R` (rows `2:n`) with the current date/time and saves the workbook.
+3. Runs `git add . && git commit -m "Stock {day}/{month} {hour}" && git push origin main` (see recent commit history for this pattern).
+
+These files are gitignored (local-only) but present in the working directory; `log_actualizacion.txt` is the run log. Since `app.py` only loads the Excel at startup, a push via this script requires a Render redeploy/restart to take effect (see Deployment below).
 
 ## Deployment
 
