@@ -30,14 +30,14 @@ Install dependencies: `pip install -r requirements.txt`
 
 **Excel data source**: `etiquetas.xlsm` — this file is updated regularly (daily stock commits, see below). Column mappings are defined in the `df.rename()` call at the top of `app.py`. If the Excel adds new columns, add them to that rename dict.
 
-**Templates** use Jinja2 with Bootstrap 5.3 and a black background. Promotional banners (Galponazo, Casacor 2026) are conditionally shown based on the `promo` and `casacor` flags from the Excel.
+**Templates** use Jinja2 with Bootstrap 5.3 and a black background. Promotional banners (Promo Julio, Casacor 2026) are conditionally shown based on the `promo` and `casacor` flags from the Excel.
 
 ## Key Data Flags (from Excel)
 
 | Excel column | Python name | Values |
 |---|---|---|
 | `CON DESCUENTO` | `con_descuento` | `"SI"` / `"-"` |
-| `PROMO` | `promo` | `"GALPONAZO"` / `"-"` |
+| `PROMO` | `promo` | `"PROMO JULIO"` / `"NO"` — when `"PROMO JULIO"`, also forces the Precio Antes/Actual + % Descuento block (same as `con_descuento == "SI"`) |
 | `CASACOR` | `casacor` | `"SI"` / `"-"` |
 | `muestra` | `muestra` | `"SI"` / `"-"` |
 | `precio muestra` | `precio_muestra` | number, formatted via `formatear_precio` |

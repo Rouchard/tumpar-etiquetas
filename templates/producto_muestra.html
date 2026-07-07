@@ -31,6 +31,17 @@
             border-bottom: 1px solid #333;
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .badge-muestra {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            padding: 2px 14px;
         }
  </style>
 </head>
@@ -40,7 +51,10 @@
             <img src="/static/logo_tumpar.png" alt="Tumpar LTDA" class="logo">
         </div>
         <div class="card p-4 shadow-lg mx-auto" style="max-width: 650px;">
-            <div class="titulo text-white">Código: {{ item.codigo }}</div>
+            <div class="titulo text-white">
+                <span>Código: {{ item.codigo }}</span>
+                <span class="badge-muestra">Muestra</span>
+            </div>
             <p class="text-white"><strong>Descripción:</strong> {{ item.descripcion }}</p>
             <p class="text-white"><strong>Marca:</strong> {{ item.marca }}</p>
             <p class="text-white"><strong>Unidad de medida:</strong> {{ item.unidad }}</p>
@@ -58,11 +72,11 @@
             </p>
 
             {% if item.unidad == "CAJA" %}
-                <h2><p class="text-white"><strong>Precio Actual M2:</strong>
-                    <span class="text-success fw-semibold">{{ item.preciom2 }} USD</span></p></h2>
+                <h2><p class="text-white"><strong>Precio Base M2:</strong>
+                    <span class="text-danger fw-semibold">{{ item.preciom2 }} USD</span></p></h2>
             {% else %}
-                <h2><p class="text-white"><strong>Precio Actual (UNIDAD):</strong>
-                    <span class="text-success fw-semibold">{{ item.precio }} USD</span></p></h2>
+                <h2><p class="text-white"><strong>Precio Base (UNIDAD):</strong>
+                    <span class="text-danger fw-semibold">{{ item.precio }} USD</span></p></h2>
             {% endif %}
 
             <h2><p class="text-white"><strong>Descuento Muestra:</strong>
