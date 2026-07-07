@@ -2,3 +2,7 @@
 actualizar_stock.py
 ejecutar_actualizacion.bat
 log_actualizacion.txt
+
+# Artefactos de Python
+__pycache__/
+*.pyc
