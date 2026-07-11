@@ -114,8 +114,11 @@
             {% endif %}
 
             {% set en_promo = item.promo and item.promo|trim|upper == "PROMO JULIO" %}
+            {% set en_descontinuado = item.status and item.status|trim|upper == "PRODUCTO DESCONTINUADO" %}
 
-            {% if item.con_descuento == "SI" or en_promo %}
+            {# Condición anterior (comentada, no eliminada, por si se vuelve a usar): #}
+            {# {% if item.con_descuento == "SI" or en_promo %} #}
+            {% if en_descontinuado or en_promo %}
 
                 {% if item.unidad == "CAJA" %}
                     <h2><p class="text-white"><strong>Precio Antes M2:</strong> 
