@@ -100,7 +100,7 @@
                 {% if item_stock_fecha_str %}{{ item_stock_fecha_str }}{% else %}N/A{% endif %}
             </p>
 
-            {% if item.promo and item.promo|trim|upper == "PROMO JULIO" %}
+            {% if item.promo and item.promo|trim|upper == "PROMO SEPTIEMBRE" %}
             <div class="promo-banner">
                 <img src="/static/total_look_klipen.png" class="promo-img left">
                 <img src="/static/hasta_40.png" class="promo-img right">
@@ -113,7 +113,7 @@
             </div>
             {% endif %}
 
-            {% set en_promo = item.promo and item.promo|trim|upper == "PROMO JULIO" %}
+            {% set en_promo = item.promo and item.promo|trim|upper == "PROMO SEPTIEMBRE" %}
             {% set en_descontinuado = item.status and item.status|trim|upper == "PRODUCTO DESCONTINUADO" %}
 
             {# Condición anterior (comentada, no eliminada, por si se vuelve a usar): #}

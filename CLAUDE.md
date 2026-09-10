@@ -38,7 +38,7 @@ Install dependencies: `pip install -r requirements.txt`
 |---|---|---|
 | `CON DESCUENTO` | `con_descuento` | `"SI"` / `"-"` — no longer used to trigger the Precio Antes/Actual block in `producto.html` (condition is commented out, kept for possible future reuse) |
 | `STATUS` | `status` | e.g. `"PRODUCTO DESCONTINUADO"`, `"PRODUCTO DE LINEA"`, `"PRODUCTO BAJO PEDIDO"` — when `"PRODUCTO DESCONTINUADO"`, forces the Precio Antes/Actual + % Descuento block in `producto.html` |
-| `PROMO` | `promo` | `"PROMO JULIO"` / `"NO"` — when `"PROMO JULIO"`, also forces the Precio Antes/Actual + % Descuento block (same trigger as `status == "PRODUCTO DESCONTINUADO"`) |
+| `PROMO` | `promo` | `"PROMO SEPTIEMBRE"` / `"NO"` — when `"PROMO SEPTIEMBRE"`, also forces the Precio Antes/Actual + % Descuento block (same trigger as `status == "PRODUCTO DESCONTINUADO"`) |
 | `CASACOR` | `casacor` | `"SI"` / `"-"` |
 | `muestra` | `muestra` | `"SI"` / `"-"` |
 | `precio muestra` | `precio_muestra` | number, formatted via `formatear_precio` |
