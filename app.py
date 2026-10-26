@@ -46,6 +46,15 @@ df['codigo'] = df['codigo'].astype(str)
 df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
 df['stock_actualizado'] = pd.to_datetime(df['stock_actualizado'], errors='coerce')
 
+# Hoja "promo": lista de códigos en promoción (workaround mientras la columna PROMO del Excel da problemas)
+try:
+    df_promo = pd.read_excel('etiquetas.xlsm', sheet_name='promo', engine='openpyxl')
+    codigos_promo = set(df_promo['COD. ARTICULO'].astype(str).str.strip())
+except Exception:
+    codigos_promo = set()
+
+df['en_promo_excel'] = df['codigo'].isin(codigos_promo)
+
 
 def formatear_porcentaje(valor_original):
     try:

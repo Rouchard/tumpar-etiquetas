@@ -107,6 +107,13 @@
             </div>
             {% endif %}
 
+            {% if item.en_promo_excel %}
+            <div class="promo-banner">
+                <img src="/static/pre_black_sale/pre_black_sale.png" class="promo-img left">
+                <img src="/static/pre_black_sale/hasta_40_off.png" class="promo-img right">
+            </div>
+            {% endif %}
+
             {% if item.casacor and item.casacor|trim|upper == "SI" %}
             <div class="promo-banner casacor">
                 <img src="/static/casacor2026.webp" class="promo-img left">
@@ -118,7 +125,7 @@
 
             {# Condición anterior (comentada, no eliminada, por si se vuelve a usar): #}
             {# {% if item.con_descuento == "SI" or en_promo %} #}
-            {% if en_descontinuado or en_promo %}
+            {% if en_descontinuado or en_promo or item.en_promo_excel %}
 
                 {% if item.unidad == "CAJA" %}
                     <h2><p class="text-white"><strong>Precio Antes M2:</strong>
