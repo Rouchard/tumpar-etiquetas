@@ -99,6 +99,15 @@ def formatear_precio(valor_original):
         return "-"
 
 
+def precios_antes_y_actual_son_iguales(item):
+    antes = item['preciom2_antes'] if item['unidad'] == 'CAJA' else item['precio_antes']
+    actual = item['preciom2'] if item['unidad'] == 'CAJA' else item['precio']
+    try:
+        return float(str(antes).replace(',', '.')) == float(str(actual).replace(',', '.'))
+    except (ValueError, TypeError):
+        return False
+
+
 def preparar_item(codigo):
     producto = df[df['codigo'] == codigo]
 
@@ -136,6 +145,9 @@ def preparar_item(codigo):
 
     # Formatear precio muestra
     item['precio_muestra'] = formatear_precio(item.get('precio_muestra', '-'))
+
+    # Si antes y actual son iguales, no tiene sentido mostrar el bloque "antes/actual" por estar descontinuado
+    item['precios_iguales'] = precios_antes_y_actual_son_iguales(item)
 
     # Formateo de fecha de ingreso
     item_fecha_str = None

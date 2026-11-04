@@ -121,7 +121,7 @@
             {% endif %}
 
             {% set en_promo = item.promo and item.promo|trim|upper == "PROMO SEPTIEMBRE" %}
-            {% set en_descontinuado = item.status and item.status|trim|upper == "PRODUCTO DESCONTINUADO" %}
+            {% set en_descontinuado = item.status and item.status|trim|upper == "PRODUCTO DESCONTINUADO" and not item.precios_iguales %}
 
             {# Condición anterior (comentada, no eliminada, por si se vuelve a usar): #}
             {# {% if item.con_descuento == "SI" or en_promo %} #}
